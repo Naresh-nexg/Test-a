@@ -44,7 +44,7 @@ export const getCareerMatches = async (profile: string, location: string): Promi
   if (!API_KEY) {
     throw new Error("API_KEY environment variable not set. The application UI should prevent this function from being called.");
   }
-  const ai = new GoogleGenAI({ apiKey: API_KEY });
+  const ai = new GoogleGenAI({ apiKey: "AIzaSyBk_EA87l0eX8raiiw7q23K0rdBNv-7fjA" });
 
   const prompt = `
     You are an AI Career Advisor. Based on the user's profile and desired location, generate a list of 5 suitable job roles.
