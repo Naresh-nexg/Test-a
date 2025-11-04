@@ -1,14 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { JobMatch } from '../types';
 
-const API_KEY = process.env.API_KEY;
-
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable not set. Please follow the instructions in the README to set up your API key.");
-}
-
-const ai = new GoogleGenAI({ apiKey: API_KEY });
-
 const responseSchema = {
   type: Type.OBJECT,
   properties: {
@@ -48,6 +40,12 @@ const responseSchema = {
 
 
 export const getCareerMatches = async (profile: string, location: string): Promise<JobMatch[]> => {
+  const API_KEY = process.env.API_KEY;
+  if (!API_KEY) {
+    throw new Error("API_KEY environment variable not set. The application UI should prevent this function from being called.");
+  }
+  const ai = new GoogleGenAI({ apiKey: API_KEY });
+
   const prompt = `
     You are an AI Career Advisor. Based on the user's profile and desired location, generate a list of 5 suitable job roles.
     For each role, provide a realistic job title, a fictional but plausible company name, a summary of why it's a good fit, and a match percentage.
