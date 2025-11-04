@@ -1,0 +1,5 @@
+{
+  "name": "AI Career Match",
+  "description": "An AI-powered system to match job seeker resumes with job descriptions. It extracts skills from both documents, calculates a similarity score, and provides a detailed analysis to help users find the best career opportunities.",
+  "requestFramePermissions": []
+}
