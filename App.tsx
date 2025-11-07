@@ -17,13 +17,8 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const t = TRANSLATIONS[language];
-  const isApiKeyMissing = !process.env.API_KEY;
 
   const handleMatch = useCallback(async () => {
-    if (isApiKeyMissing) {
-      // The persistent error message is already shown, no need for another alert.
-      return;
-    }
     if (!profile.trim() || !location.trim()) {
       setError(t.error_empty);
       return;
@@ -42,7 +37,7 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [profile, location, t, isApiKeyMissing]);
+  }, [profile, location, t]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 relative antialiased">
@@ -85,7 +80,7 @@ const App: React.FC = () => {
           <div className="mt-6 text-center">
              <button
               onClick={handleMatch}
-              disabled={isLoading || isApiKeyMissing}
+              disabled={isLoading}
               className="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-400/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
             >
               <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
@@ -95,12 +90,6 @@ const App: React.FC = () => {
           </div>
         </div>
         
-        {isApiKeyMissing && (
-          <div className="mt-8 bg-red-800/90 text-white text-sm font-semibold px-4 py-2 rounded-md shadow-lg backdrop-blur-sm border border-red-600">
-            {t.error_api_key}
-          </div>
-        )}
-
         <div className="mt-10 w-full">
           {isLoading && <Loader text={t.loader_text}/>}
           {error && (

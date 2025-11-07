@@ -24,7 +24,6 @@ export interface TranslationSet {
   error_title: string;
   error_empty: string;
   error_generic: string;
-  error_api_key: string;
   loader_text: string;
   match_results_title: string;
   summary_title: string;
